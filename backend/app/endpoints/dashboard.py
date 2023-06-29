@@ -8,16 +8,16 @@ from app.core.dependencies import get_db
 from app.core import crud
 
 router = APIRouter(
-    prefix="/predictions",
-    tags=["channels"],
+    prefix="/dashboard",
+    tags=["dashboard"],
 )
 
 
 @router.get(
-    '/{channel_id}',
-    response_model=response_schemas.ChannelPrediction,
+    '/',
+    response_model=response_schemas.Dashboard,
 )
-async def get_prediction(channel_id: int, db: Session = Depends(get_db)):
+async def get_prediction(db: Session = Depends(get_db)):
     """
     Get a prediction in a channel
     """
