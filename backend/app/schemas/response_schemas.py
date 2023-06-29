@@ -14,10 +14,18 @@ class Channel(BaseModel):
     channel_type: str = Field(..., alias="type")
     channel_subscribers: int = Field(..., alias="subscribers")
 
+    class Config:
+        orm_mode = True
+        arbitrary_types_allowed = True
+
 
 class ChannelList(BaseModel):
     count = int
     channels = List[Channel]
+
+    class Config:
+        orm_mode = True
+        arbitrary_types_allowed = True
 
 
 class ChannelInfo(BaseModel):
@@ -32,6 +40,7 @@ class ChannelPost(BaseModel):
 
     class Config:
         orm_mode = True
+        arbitrary_types_allowed = True
 
 
 class ChannelAllPosts(BaseModel):
@@ -40,6 +49,7 @@ class ChannelAllPosts(BaseModel):
 
     class Config:
         orm_mode = True
+        arbitrary_types_allowed = True
 
 
 class ChannelPostInfo(BaseModel):

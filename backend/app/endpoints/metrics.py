@@ -7,6 +7,7 @@ from app.config import log
 from app.schemas import response_schemas, request_schemas
 from app.core.dependencies import get_db
 from app.core import crud
+from app.endpoints.channels import router
 
 router = APIRouter(
     prefix="/channels",
