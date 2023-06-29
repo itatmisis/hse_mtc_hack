@@ -51,6 +51,17 @@ class PostMetrics(Base):
     post = relationship("Post", back_populates="metrics")
 
 
+class Comment(Base):
+    __tablename__ = "comments"
+
+    comment_id = Column(Integer, primary_key=True)
+    post_id = Column(Integer, ForeignKey("posts.post_id"))
+    content = Column(String)
+    comment_date = Column(DateTime)
+
+    post = relationship("Post", back_populates="comments")
+
+
 class Reaction(Base):
     __tablename__ = "reactions"
 

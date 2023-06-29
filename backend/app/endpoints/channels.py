@@ -2,19 +2,18 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from sqlalchemy.orm import Session
 
-from app.config import settings
 from app.config import log
-from app.core import schemas
+from app.schemas import response_schemas, request_schemas
 from app.core.dependencies import get_db
 from app.core import crud
 
 router = APIRouter(
     prefix="/channels",
-    tags=["channeld"],
+    tags=["channels"],
 )
 
 
-@router.get("/", response_model=schemas.ChannelList)
+@router.get("/", response_model=response_schemas.ChannelList)
 async def get_channels(
     db: Session = Depends(get_db),
     skip: int = 0,
@@ -29,7 +28,7 @@ async def get_channels(
 
 @router.post("/")
 async def add_channel(
-    channel: schemas.Channel,
+    channel: request_schemas.ChannelCreate,
     db: Session = Depends(get_db),
 ):
     """
@@ -39,7 +38,7 @@ async def add_channel(
     return channel
 
 
-@router.get("/{channel_id}", response_model=schemas.Channel)
+@router.get("/{channel_id}", response_model=response_schemas.Channel)
 async def get_channel(
     channel_id: str,
     db: Session = Depends(get_db),
