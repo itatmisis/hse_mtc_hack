@@ -17,8 +17,6 @@ class Channel(Base):
     channel_url = Column(String)
     added_date = Column(DateTime)
 
-    posts = relationship("Post", back_populates="channel")
-
 
 class Post(Base):
     __tablename__ = "posts"
@@ -28,11 +26,6 @@ class Post(Base):
     channel_id = Column(Integer, ForeignKey("channels.channel_id"))
     content = Column(String)
     post_date = Column(DateTime)
-
-    channel = relationship("Channel", back_populates="posts")
-    metrics = relationship("PostMetrics", uselist=False, back_populates="post")
-    reactions = relationship("Reaction", back_populates="post")
-    sentiment_analysis = relationship("SentimentAnalysis", back_populates="post")
 
 
 class PostMetrics(Base):
@@ -48,8 +41,6 @@ class PostMetrics(Base):
     videos = Column(Integer)
     recorded_date = Column(DateTime)
 
-    post = relationship("Post", back_populates="metrics")
-
 
 class Comment(Base):
     __tablename__ = "comments"
@@ -58,8 +49,6 @@ class Comment(Base):
     post_id = Column(Integer, ForeignKey("posts.post_id"))
     content = Column(String)
     comment_date = Column(DateTime)
-
-    post = relationship("Post", back_populates="comments")
 
 
 class Reaction(Base):
@@ -70,8 +59,6 @@ class Reaction(Base):
     reaction_desc = Column(String)
     count = Column(Integer)
 
-    post = relationship("Post", back_populates="reactions")
-
 
 class SentimentAnalysis(Base):
     __tablename__ = "sentiment_analysis"
@@ -81,8 +68,6 @@ class SentimentAnalysis(Base):
     sentiment_score = Column(Numeric)
     sentiment_label = Column(String)
     recorded_date = Column(DateTime)
-
-    post = relationship("Post", back_populates="sentiment_analysis")
 
 
 class Prediction(Base):
@@ -102,9 +87,6 @@ class ComparisonMetrics(Base):
     channel2_id = Column(Integer, ForeignKey("channels.channel_id"))
     metric = Column(String)
     comparison_date = Column(DateTime)
-
-    channel1 = relationship("Channel", foreign_keys=[channel1_id])
-    channel2 = relationship("Channel", foreign_keys=[channel2_id])
 
 
 class User(Base):
