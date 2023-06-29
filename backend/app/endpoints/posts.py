@@ -46,7 +46,6 @@ async def get_post(channel_id: int, post_id: int, db: Session = Depends(get_db))
     """
     post = crud.get_post_by_id(db, channel_id, post_id)
     if not post:
-
         log.error(f"Post {post_id} not found")
 
         raise HTTPException(
