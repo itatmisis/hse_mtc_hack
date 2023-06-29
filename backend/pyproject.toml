@@ -13,6 +13,7 @@ sqlalchemy = "^2.0.17"
 uvicorn = "^0.22.0"
 python-dotenv = "^1.0.0"
 loguru = "^0.7.0"
+requests = "^2.31.0"
 
 
 [build-system]

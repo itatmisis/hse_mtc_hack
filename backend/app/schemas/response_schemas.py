@@ -25,14 +25,21 @@ class ChannelInfo(BaseModel):
 
 
 class ChannelPost(BaseModel):
-    post_id: str = Field(..., alias="id")
-    post_text: str = Field(..., alias="text")
-    post_timestamp: str = Field(..., alias="timestamp")
+    post_id: str = Field(..., alias="post_id")
+    post_date: str = Field(..., alias="post_date")
+    post_views: int = Field(..., alias="views")
+    post_comments: int = Field(..., alias="comments")
+
+    class Config:
+        orm_mode = True
 
 
 class ChannelAllPosts(BaseModel):
     count: int
     posts: List[ChannelPost]
+
+    class Config:
+        orm_mode = True
 
 
 class ChannelPostInfo(BaseModel):

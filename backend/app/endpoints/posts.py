@@ -6,6 +6,7 @@ from app.config import log
 from app.schemas import response_schemas, request_schemas
 from app.core.dependencies import get_db
 from app.core import crud
+from app.utils import tg
 
 router = APIRouter(
     prefix="/channels",
@@ -17,10 +18,20 @@ router = APIRouter(
     '/{channel_id}/posts',
     response_model=response_schemas.ChannelAllPosts,
 )
-async def get_all_posts(channel_id: int, db: Session = Depends(get_db)):
+async def get_all_posts(channel_id: str, db: Session = Depends(get_db)):
     """
     Get all posts in a channel
     """
+    r = tg.parse_channel(channel_id)
+
+    if not r:
+        log.error(f"Channel {channel_id} not found")
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Channel {channel_id} not found",
+        )
+
     posts = crud.get_posts_by_channel_id(db, channel_id)
     return posts
 

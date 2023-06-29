@@ -67,9 +67,8 @@ class Reaction(Base):
 
     reaction_id = Column(Integer, primary_key=True)
     post_id = Column(Integer, ForeignKey("posts.post_id"))
-    type = Column(String)
+    reaction_desc = Column(String)
     count = Column(Integer)
-    recorded_date = Column(DateTime)
 
     post = relationship("Post", back_populates="reactions")
 
