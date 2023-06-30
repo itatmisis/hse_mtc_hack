@@ -74,7 +74,9 @@ async def run_scheduled_jobs() -> None:
         log.debug(f"Trying to schedule job for {job}...")
         try:
             async with aiohttp.ClientSession() as session:
-                async with session.post("http://" + config.worker_address + "/parse",
+                url = "http://" + config.worker_address + "/parse"
+                log.debug(f"Sending request to {url} with params 'group_link': {job[0]}...")
+                async with session.post(url,
                                         params={'group_link': job[0]}) as response:
                     if response.status == 200:
                         log.info(f"Successfully scheduled job for {job}")
@@ -89,7 +91,7 @@ async def run_scheduled_jobs() -> None:
                             job_queue[job] = {'messages_limit': job[1]['messages_limit'],
                                               'comments_limit': job[1]['comments_limit']}
                     else:
-                        log.debug(f"Failed to schedule job for {job}: {response.status}")
+                        log.debug(f"Failed to schedule job for {job}: {response}")
                         job_queue[job] = {'messages_limit': job[1]['messages_limit'],
                                           'comments_limit': job[1]['comments_limit']}
         except Exception as exc:

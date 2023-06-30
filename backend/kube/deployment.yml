@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deepmisis-api
+  namespace: deepmisis-hse
+  labels:
+    app: dm-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: dm-api
+  template:
+    metadata:
+      labels:
+        app: dm-api
+    spec:
+      containers:
+        - name: api
+          image: 0xb1b1/hse_mts_hack_api:latest
+          imagePullPolicy: Always
+          ports:
+          - name: http
+            containerPort: 3333
+            protocol: TCP
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /
+              port: 3333
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /
+              port: 3333
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 700Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: COORDINATOR_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: common-config
+                  key: COORDINATOR_HOSTNAME
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: common-secrets
+                  key: POSTGRES_PASSWORD
+          envFrom:
+            - configMapRef:
+                name: common-config

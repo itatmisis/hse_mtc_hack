@@ -9,6 +9,7 @@ data:
   MESSAGES_DEFAULT_LIMIT: "20"
   COMMENTS_DEFAULT_LIMIT: "10"
   WORKER_HOSTNAME: "worker-lb:29600"  # The service should be running on port 80; if not, specify it here
+  COORDINATOR_HOSTNAME: "coordinator:80"
 
   POSTGRES_USER: "root"
   POSTGRES_HOST: "77.37.209.29"
