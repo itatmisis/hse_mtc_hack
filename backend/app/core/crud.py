@@ -24,7 +24,7 @@ def get_posts_by_channel_id(
         db_models.Post.channel_id == channel_id
     ).all()
 
-    if not posts:
+    if len(posts) == 0:
         log.error(f"Posts not found in channel {channel_id}")
         return None
 
