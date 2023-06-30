@@ -42,7 +42,16 @@ async def get_all_posts(group_handle: str, db: Session = Depends(get_db)):
                 detail=f"Channel {handle} not found",
             )
 
-    posts = crud.get_posts_by_channel_id(db, handle)
+    try:
+        posts = crud.get_posts_by_channel_id(db, handle)
+    except Exception as e:
+        db.rollback()
+        log.error(f"Error getting posts for channel {handle}: {e}")
+
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Error getting posts for channel {handle}: {e}",
+        )
     return posts
 
 
