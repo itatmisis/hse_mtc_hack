@@ -37,7 +37,7 @@ class ChannelPost(BaseModel):
     post_date: str = Field(..., alias="post_date")
     post_views: int = Field(..., alias="views")
     post_comments: int = Field(..., alias="comments")
-    post_reactions: Union[Dict[str, int], None] = Field(None, alias="reactions")
+    post_reactions: Union[Dict[str, int], None] = Field(..., alias="reactions")
 
     class Config:
         orm_mode = True

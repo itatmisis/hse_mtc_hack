@@ -28,8 +28,6 @@ def get_posts_by_channel_id(
         log.error(f"Posts not found in channel {channel_id}")
         return None
 
-    log.info(f'{posts}')
-
     return response_schemas.ChannelAllPosts(
         count=len(posts),
         posts=[response_schemas.ChannelPost.from_orm(post) for post in posts],
