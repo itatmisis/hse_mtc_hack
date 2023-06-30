@@ -6,6 +6,7 @@ from pyrogram import Client, errors, enums
 from pyrogram.raw.functions import messages
 from pyrogram.raw import functions, types
 
+import config
 from config import log
 
 # load_dotenv()
@@ -37,7 +38,7 @@ async def parse_group(api_id: int = API_ID, api_hash: str = API_HASH,
     If channel_id is not None, channel_link will be ignored.
     """
 
-    async with Client("oxb1b1", api_id, api_hash) as app:
+    async with Client("oxb1b1", api_id, api_hash, session_string=config.telegram_session_token) as app:
         group_report = {
             'handle': channel_link,
             'name': None,

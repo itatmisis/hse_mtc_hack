@@ -3,6 +3,7 @@
 import logging
 from os import getenv
 
+telegram_session_token = getenv('TELEGRAM_SESSION_TOKEN')
 telegram_api_id = getenv('TELEGRAM_API_ID')
 telegram_api_hash = getenv('TELEGRAM_API_HASH')
 
