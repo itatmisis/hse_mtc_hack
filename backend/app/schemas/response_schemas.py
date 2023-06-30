@@ -53,6 +53,15 @@ class ChannelAllPosts(BaseModel):
         arbitrary_types_allowed = True
 
 
+class ChannelTopPosts(BaseModel):
+    count: int
+    posts: List[ChannelPost]
+
+    class Config:
+        orm_mode = True
+        arbitrary_types_allowed = True
+
+
 class ChannelPostInfo(BaseModel):
     ...
 
