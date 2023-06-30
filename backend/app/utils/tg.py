@@ -13,7 +13,7 @@ def parse_channel(link: str, counter: int = 0) -> bool:
         return False
 
     params = {
-        'link': link
+        'group_handle': link
     }
 
     r = requests.post(
