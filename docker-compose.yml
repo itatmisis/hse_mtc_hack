@@ -33,6 +33,7 @@ services:
       - "3333:3333"
     depends_on:
       - db
+      - coordinator
 
   coordinator:
     image: 0xb1b1/hse_mts_hack_coordinator:latest

@@ -1,7 +1,6 @@
 import requests
 
 import time
-import asyncio
 
 from app.config import log
 from app.config import settings
