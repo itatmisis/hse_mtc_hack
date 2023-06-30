@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: deepmisis-hse
+  labels:
+    name: deepmisis-hse

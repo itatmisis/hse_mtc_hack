@@ -4,7 +4,7 @@ import logging
 from os import getenv
 
 # region Environment
-worker_address = getenv('WORKER_ADDRESS')  # Service hostname/IP in K8s
+worker_address = getenv('WORKER_HOSTNAME', 'worker')  # Service hostname/IP in K8s
 # endregion
 
 # region Logging
