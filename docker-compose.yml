@@ -1,8 +1,8 @@
 version: "3"
 
-volumes:
-  db:
-  logs:
+# volumes:
+#   db:
+#   logs:
 
 services:
   db:
@@ -10,12 +10,10 @@ services:
     restart: always
     env_file:
       - backend/app/.env
-    environment:
-      - POSTGRES_USER=kimdaniil
-      - POSTGRES_PASSWORD=12345678
-      - POSTGRES_DB=postgres
-    volumes:
-      - "db:/var/lib/postgresql/data"
+    env_file:
+      - .env
+    # volumes:
+    #   - "db:/var/lib/postgresql/data"
     ports:
       - "5555:5432"
     healthcheck:
@@ -24,16 +22,29 @@ services:
       timeout: 3s
       retries: 3
 
-  app:
+  api:
     build:
       context: ./backend
       dockerfile: Dockerfile
     restart: always
     env_file:
-      - backend/app/.env
-    volumes:
-      - "logs:/data"
+      - .env
+    # volumes:
+    #   - "logs:/data"
     ports:
       - "3333:3333"
+    depends_on:
+      - db
+
+  worker:
+    image: 0xb1b1/hse_mts_hack_worker:latest
+    restart: always
+    build:
+      context: ./worker
+      dockerfile: docker/Dockerfile
+    env_file:
+      - .env
+    ports:
+      - 8000:8000
     depends_on:
       - db

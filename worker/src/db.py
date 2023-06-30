@@ -118,3 +118,5 @@ class DBManager:
             self.session.commit()
         except Exception as exc:
             log.error(f"An error occurred while adding channel \"{data['name']}\" to the database: {exc}")
+            self.session.rollback()
+        log.debug(f"Finished adding channel \"{data['name']}\" to the database!")
