@@ -34,6 +34,7 @@ class Settings(BaseSettings):
     POSTGRES_HOST: str = "db"
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
+    POSTGRES_PORT: str
     POSTGRES_DB: str
     DATABASE_URI: Optional[PostgresDsn] = None
 
@@ -49,7 +50,7 @@ class Settings(BaseSettings):
             host=str(values.get("POSTGRES_HOST"))
             if values.get("POSTGRES_HOST")
             else "127.0.0.1",
-            port="5432",
+            port=str(values.get("POSTGRES_PORT")),
             path=f"/{values.get('POSTGRES_DB') or ''}",
         )
 
