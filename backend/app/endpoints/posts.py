@@ -59,16 +59,29 @@ async def get_all_posts(group_handle: str, db: Session = Depends(get_db)):
     "/{channel_id}/posts/{post_id}",
     response_model=response_schemas.ChannelPost,
 )
-async def get_post(channel_id: int, post_id: int, db: Session = Depends(get_db)):
+async def get_post(group_handle: str, post_id: str, db: Session = Depends(get_db)):
     """
     Get a post in a channel
     """
-    post = crud.get_post_by_id(db, channel_id, post_id)
+    post = crud.get_post_by_id(db, group_handle, post_id)
     if not post:
         log.error(f"Post {post_id} not found")
 
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail=f"Post {post_id} not found",
+        )
+    return post
+
+
+@router.get("/{channel_id}/posts/top", response_model=response_schemas.ChannelTopPosts)
+async def get_top_posts(group_handle: str, db: Session = Depends(get_db)):
+    post = crud.get_top_posts_by_channel_handle(db, group_handle)
+    if not post:
+        log.error(f"Posts from {group_handle} not found")
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Post {group_handle} not found",
         )
     return post

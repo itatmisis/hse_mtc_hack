@@ -87,3 +87,34 @@ def get_channel_id_by_handle(
     ).filter(
         db_models.Channel.channel_handle = channel_id
     ).first()
+
+
+def get_top_posts_by_channel_handle(
+    db: Session,
+    channel_handle: str
+) -> response_schemas.ChannelTopPosts | None:
+    """
+    Get top posts in a channel
+    """
+
+    channel_id = get_channel_id_by_handle(db, channel_handle)
+
+    posts = db.query(
+        db_models.Post.id.label("post_id"),
+        db_models.Post.date.label("post_date"),
+        db_models.PostMetrics.views.label("views"),
+        db_models.PostMetrics.comments.label("comments"),
+    ).join(db_models.PostMetrics).filter(
+        db_models.Post.channel_id == channel_id
+    ).order_by(
+        db_models.PostMetrics.views.desc()
+    ).limit(10).all()
+
+    if not posts:
+        log.error(f"Posts not found in channel {channel_id}")
+        return None
+
+    return response_schemas.ChannelTopPosts(
+        count=len(posts),
+        posts=[response_schemas.ChannelPost.from_orm(post) for post in posts],
+    )
