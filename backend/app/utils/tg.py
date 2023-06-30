@@ -17,7 +17,7 @@ def parse_channel(link: str, counter: int = 0) -> bool:
     }
 
     r = requests.post(
-        f'{settings.TG_SERVICE_HOST}:{settings.TG_SERVICE_PORT}/schedule',
+        f'http://{settings.TG_SERVICE_HOST}:{settings.TG_SERVICE_PORT}/schedule',
         json=params,
     )
 
