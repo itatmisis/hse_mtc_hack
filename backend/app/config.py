@@ -13,8 +13,15 @@ class Settings(BaseSettings):
     DOCKER_MODE: bool = True
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
 
-    TG_SERVICE_HOST: str = 'coordinator'
-    TG_SERVICE_PORT: int = 8001
+    COORDINATOR_HOSTNAME: str
+
+    @validator("COORDINATOR_HOSTNAME", pre=True)
+    def assemble_coordinator_hostname(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+        if isinstance(v, str):
+            return v
+
+        return str(values.get("COORDINATOR_HOSTNAME"))
+
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
