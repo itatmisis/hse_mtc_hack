@@ -18,7 +18,7 @@ def parse_channel(link: str, counter: int = 0) -> bool:
 
     r = requests.post(
         f'http://{settings.TG_SERVICE_HOST}:{settings.TG_SERVICE_PORT}/schedule',
-        data=params,
+        params=params,
     )
 
     if r.status_code == 200:
