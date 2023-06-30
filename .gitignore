@@ -3,3 +3,5 @@ venv/
 *-group_report.json
 *.session
 __pycache__/
+
+kube-secrets.yml

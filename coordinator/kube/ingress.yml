@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: coordinator
+  namespace: deepmisis-hse
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: coordinator.deep-misis.seizure.icu
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: coordinator
+            port:
+              number: 80
+  tls:
+    - hosts:
+      - coordinator.deep-misis.seizure.icu
+      secretName: acme-cert-prod

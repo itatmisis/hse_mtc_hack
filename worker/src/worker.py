@@ -10,11 +10,11 @@ import config
 from config import log
 
 # load_dotenv()
-EXAMPLE_CHANNEL_LINK = getenv("EXAMPLE_CHANNEL_LINK")
+EXAMPLE_CHANNEL_LINK = getenv("EXAMPLE_CHANNEL_LINK", "durov")
 API_ID = int(getenv("TELEGRAM_API_ID"))
 API_HASH = getenv("TELEGRAM_API_HASH")
-MESSAGES_LIMIT = int(getenv("MESSAGES_LIMIT"))
-COMMENTS_LIMIT = int(getenv("COMMENTS_LIMIT"))
+MESSAGES_LIMIT = int(getenv("MESSAGES_DEFAULT_LIMIT"), 20)
+COMMENTS_LIMIT = int(getenv("COMMENTS_DEFAULT_LIMIT"), 10)
 
 
 async def parse_group(api_id: int = API_ID, api_hash: str = API_HASH,

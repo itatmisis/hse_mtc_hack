@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: acme-cert-prod
+  namespace: deepmisis-hse
+spec:
+  secretName: acme-cert-prod
+  issuerRef:
+    name: acme-dns01
+    kind: ClusterIssuer
+  dnsNames:
+    - "deep-misis.seizure.icu"
+    - "*.deep-misis.seizure.icu"

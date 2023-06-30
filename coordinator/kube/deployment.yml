@@ -1,21 +1,55 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nginx-deployment
+  name: deepmisis-coordinator
+  namespace: deepmisis-hse
   labels:
-    app: nginx
+    app: dm-coordinator
 spec:
-  replicas: 3
+  replicas: 1  # Should be 1
   selector:
     matchLabels:
-      app: nginx
+      app: dm-coordinator
   template:
     metadata:
       labels:
-        app: nginx
+        app: dm-coordinator
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
-        ports:
-        - containerPort: 80
+        - name: coordinator
+          image: 0xb1b1/hse_mts_hack_coordinator:latest
+          imagePullPolicy: Always
+          ports:
+          - name: http
+            containerPort: 8001
+            protocol: TCP
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /
+              port: 8001
+            initialDelaySeconds: 5
+            timeoutSeconds: 3
+          readinessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /
+              port: 8001
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+          resources:
+            limits:
+              cpu: 1000m
+              memory: 700Mi
+            requests:
+              cpu: 100m
+              memory: 256Mi
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+          envFrom:
+            - configMapRef:
+                name: common-config

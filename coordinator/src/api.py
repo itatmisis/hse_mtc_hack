@@ -88,6 +88,10 @@ async def run_scheduled_jobs() -> None:
                             log.info(f"Current worker is busy; putting {job} in the last place of the queue")
                             job_queue[job] = {'messages_limit': job[1]['messages_limit'],
                                               'comments_limit': job[1]['comments_limit']}
+                    else:
+                        log.debug(f"Failed to schedule job for {job}: {response.status}")
+                        job_queue[job] = {'messages_limit': job[1]['messages_limit'],
+                                          'comments_limit': job[1]['comments_limit']}
         except Exception as exc:
             log.error(f"Failed to schedule job for {job}: {exc}")
             if not is_successful:

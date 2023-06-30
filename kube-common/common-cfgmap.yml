@@ -1,0 +1,16 @@
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: common-config
+  namespace: deepmisis-hse
+data:
+  LOGGING_LEVEL: "debug"
+  MESSAGES_DEFAULT_LIMIT: "20"
+  COMMENTS_DEFAULT_LIMIT: "10"
+  WORKER_HOSTNAME: "worker-lb:29600"  # The service should be running on port 80; if not, specify it here
+
+  POSTGRES_USER: "root"
+  POSTGRES_HOST: "77.37.209.29"
+  POSTGRES_PORT: "5678"
+  POSTGRES_DB: "deepmisis"
