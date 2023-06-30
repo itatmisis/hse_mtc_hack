@@ -22,6 +22,9 @@ async def root():
 # Job FIFO queue
 job_queue: dict = {}
 
+# Scheduler lock
+scheduler_running = False
+
 
 @api.post("/schedule")
 async def schedule_parse_job(group_handle: str,
@@ -55,6 +58,10 @@ async def schedule_parse_job(group_handle: str,
 @api.on_event("startup")
 @repeat_every(seconds=35)
 async def run_scheduled_jobs() -> None:
+    global scheduler_running
+    if scheduler_running:
+        log.debug("Scheduler is already running; skipping...")
+    scheduler_running = True
     log.debug(f"Running scheduled jobs ({job_queue.items()})...")
     # Delete the first job from the queue and schedule it
     if job_queue:
@@ -88,6 +95,7 @@ async def run_scheduled_jobs() -> None:
                     job_queue[job] = {'messages_limit': job[1]['messages_limit'],
                                       'comments_limit': job[1]['comments_limit']}
             continue
+    scheduler_running = False
 # endregion
 
 
