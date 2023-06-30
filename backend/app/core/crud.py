@@ -16,8 +16,8 @@ def get_posts_by_channel_id(
     channel_id = get_channel_id_by_handle(db, handle)
 
     posts = db.query(
-        db_models.Post.id.label("post_id"),
-        db_models.Post.date.label("post_date"),
+        db_models.Post.post_id.label("post_id"),
+        db_models.Post.post_date.label("post_date"),
         db_models.PostMetrics.views.label("views"),
         db_models.PostMetrics.comments.label("comments"),
     ).join(db_models.PostMetrics).filter(
@@ -43,12 +43,12 @@ def get_post_by_id(
     Get a post by its id
     """
     post = db.query(
-        db_models.Post.id.label("post_id"),
-        db_models.Post.date.label("post_date"),
+        db_models.Post.post_id.label("post_id"),
+        db_models.Post.post_date.label("post_date"),
         db_models.PostMetrics.views.label("views"),
         db_models.PostMetrics.comments.label("comments"),
     ).join(db_models.PostMetrics).filter(
-        db_models.Post.id == post_id,
+        db_models.Post.post_id == post_id,
         db_models.Post.channel_id == channel_id
     ).first()
 
@@ -100,8 +100,8 @@ def get_top_posts_by_channel_handle(
     channel_id = get_channel_id_by_handle(db, channel_handle)
 
     posts = db.query(
-        db_models.Post.id.label("post_id"),
-        db_models.Post.date.label("post_date"),
+        db_models.Post.post_id.label("post_id"),
+        db_models.Post.post_date.label("post_date"),
         db_models.PostMetrics.views.label("views"),
         db_models.PostMetrics.comments.label("comments"),
     ).join(db_models.PostMetrics).filter(
