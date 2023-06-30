@@ -1,0 +1,6 @@
+pyrogram==2.0.106
+SQLAlchemy==2.0.17
+psycopg2_binary==2.9.6
+python_dotenv==1.0.0
+tgcrypto==1.2.5
+fastapi[all]==0.98.0

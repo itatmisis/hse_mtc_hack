@@ -1,0 +1,3 @@
+.env
+venv/
+*-group_report.json
