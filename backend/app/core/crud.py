@@ -85,7 +85,7 @@ def get_channel_id_by_handle(
     return db.query(
         db_models.Channel.channel_id
     ).filter(
-        db_models.Channel.channel_handle = channel_id
+        db_models.Channel.channel_handle == channel_id
     ).first()
 
 

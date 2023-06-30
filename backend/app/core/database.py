@@ -17,10 +17,14 @@ SessionLocal: Any
 def connect_db():
     global engine
     global SessionLocal
-    engine = create_engine(
-        str(settings.DATABASE_URI),
-        pool_pre_ping=True,
-    )
+    try:
+        engine = create_engine(
+            str(settings.DATABASE_URI),
+            pool_pre_ping=True,
+        )
+    except Exception as e:
+        log.error(e)
+        log.info(f's = {str(settings.DATABASE_URI)}')
     Base.metadata.bind = engine
     SessionLocal = sessionmaker(bind=engine)
 
