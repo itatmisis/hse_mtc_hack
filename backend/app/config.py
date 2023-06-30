@@ -10,11 +10,11 @@ load_dotenv()
 
 
 class Settings(BaseSettings):
-    DOCKER_MODE: bool = False
+    DOCKER_MODE: bool = True
     BACKEND_CORS_ORIGINS: List[str] = ["*"]
 
-    # TG_SERVICE_HOST: str
-    # TG_SERVICE_PORT: int
+    TG_SERVICE_HOST: str = 'coordinator'
+    TG_SERVICE_PORT: int = 8001
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
@@ -24,7 +24,7 @@ class Settings(BaseSettings):
             return v
         raise ValueError(v)
 
-    POSTGRES_SERVER: str = "db"
+    POSTGRES_HOST: str = "db"
     POSTGRES_USER: str
     POSTGRES_PASSWORD: str
     POSTGRES_DB: str
@@ -39,8 +39,8 @@ class Settings(BaseSettings):
             scheme="postgresql+psycopg2",
             user=values.get("POSTGRES_USER"),
             password=values.get("POSTGRES_PASSWORD"),
-            host=str(values.get("POSTGRES_SERVER"))
-            if values.get("POSTGRES_SERVER")
+            host=str(values.get("POSTGRES_HOST"))
+            if values.get("POSTGRES_HOST")
             else "127.0.0.1",
             port="5432",
             path=f"/{values.get('POSTGRES_DB') or ''}",

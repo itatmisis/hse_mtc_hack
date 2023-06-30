@@ -49,6 +49,7 @@ async def parse_group(api_id: int = API_ID, api_hash: str = API_HASH,
             'last_message_id': None,
             'messages': {}
         }
+        print(f'session = {app.export_session_string()}')
         channel: types.input_peer_channel.InputPeerChannel = await app.resolve_peer(channel_link)
         # Get channel information
         channel_info: types.messages.chat_full.ChatFull = await app.invoke(functions.channels.GetFullChannel(channel=channel))

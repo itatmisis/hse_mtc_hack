@@ -7,11 +7,14 @@ from app.config import log
 
 def get_posts_by_channel_id(
     db: Session,
-    channel_id: str
+    handle: str
 ) -> response_schemas.ChannelAllPosts | None:
     """
     Get all posts in a channel
     """
+
+    channel_id = get_channel_id_by_handle(db, handle)
+
     posts = db.query(
         db_models.Post.id.label("post_id"),
         db_models.Post.date.label("post_date"),
@@ -72,3 +75,15 @@ def get_post_by_id(
         reactions=reactions,
         **post.__dict__
     )
+
+
+def get_channel_id_by_handle(
+    db: Session,
+    channel_id: str
+) -> bool:
+
+    return db.query(
+        db_models.Channel.channel_id
+    ).filter(
+        db_models.Channel.channel_handle = channel_id
+    ).first()
