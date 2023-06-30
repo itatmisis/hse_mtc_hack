@@ -3,13 +3,13 @@
 import logging
 from os import getenv
 
-telegram_session_token = getenv('TELEGRAM_SESSION_TOKEN')
-telegram_api_id = getenv('TELEGRAM_API_ID')
-telegram_api_hash = getenv('TELEGRAM_API_HASH')
+# region Environment
+worker_address = getenv('WORKER_ADDRESS')  # Service hostname/IP in K8s
+# endregion
 
 # region Logging
 # Create a logger instance
-log = logging.getLogger("api.py-worker")
+log = logging.getLogger("api.py-coordinator")
 
 # AIOGram logging
 # logging.basicConfig(level=logging.DEBUG)

@@ -31,7 +31,9 @@ active_jobs: dict[str, asyncio.Task] = {}
 
 
 @api.post("/parse")
-async def parse_telegram_group(group_link: str):
+async def parse_telegram_group(group_link: str,
+                               messages_limit: int = 20,
+                               comments_limit: int = 20):
     # Check if a parsing job is already active for this worker
     global is_occupied
     if is_occupied:
@@ -47,10 +49,11 @@ async def parse_telegram_group(group_link: str):
             )
     except IndexError:
         link = group_link
-    del group_link
 
     # Create a task for the parsing job
-    job_task = asyncio.create_task(job_parse_group(link))
+    job_task = asyncio.create_task(job_parse_group(link,
+                                                   messages_limit,
+                                                   comments_limit))
     active_jobs[link] = job_task
     is_occupied = True
 
@@ -58,11 +61,13 @@ async def parse_telegram_group(group_link: str):
     return {"status": "in_progress"}
 
 
-async def job_parse_group(link: str):
+async def job_parse_group(link: str, messages_limit: int, comments_limit: int):
     # Perform the parsing job here
     result = await parse_group(channel_link=link,
                                api_id=config.telegram_api_id,
-                               api_hash=config.telegram_api_hash)
+                               api_hash=config.telegram_api_hash,
+                               messages_limit=messages_limit,
+                               comments_limit=comments_limit)
     log.debug("Adding channel records to DB...")
     db.add_channel_records(result)
 

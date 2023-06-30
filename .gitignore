@@ -2,3 +2,4 @@
 venv/
 *-group_report.json
 *.session
+__pycache__/
