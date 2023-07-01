@@ -22,7 +22,7 @@ services:
 
   api:
     build:
-      context: ./backend
+      context: ./api
       dockerfile: Dockerfile
     restart: always
     env_file:
@@ -30,7 +30,7 @@ services:
     # volumes:
     #   - "logs:/data"
     ports:
-      - "3333:3333"
+      - "3333:80"
     depends_on:
       - db
 
