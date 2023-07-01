@@ -22,7 +22,7 @@ services:
 
   api:
     build:
-      context: ./api
+      context: ./microservices/api
       dockerfile: Dockerfile
     restart: always
     env_file:
@@ -38,7 +38,7 @@ services:
     image: 0xb1b1/hse_mts_hack_coordinator:latest
     restart: always
     build:
-      context: ./coordinator
+      context: ./microservices/coordinator
       dockerfile: docker/Dockerfile
     env_file:
       - .env
@@ -51,7 +51,7 @@ services:
     image: 0xb1b1/hse_mts_hack_worker:latest
     restart: always
     build:
-      context: ./worker
+      context: ./microservices/worker
       dockerfile: docker/Dockerfile
     env_file:
       - .env
