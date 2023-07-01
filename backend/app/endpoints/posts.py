@@ -15,7 +15,7 @@ router = APIRouter(
 
 
 @router.get(
-    "/{channel_id}/posts",
+    "/{group_handle}/posts",
     response_model=response_schemas.ChannelAllPosts,
 )
 async def get_all_posts(group_handle: str, db: Session = Depends(get_db)):
@@ -52,11 +52,16 @@ async def get_all_posts(group_handle: str, db: Session = Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Error getting posts for channel {handle}: {e}",
         )
+    if posts is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="try again later",
+        )
     return posts
 
 
 @router.get(
-    "/{channel_id}/posts/{post_id}",
+    "/{group_handle}/posts/{post_id}",
     response_model=response_schemas.ChannelPost,
 )
 async def get_post(group_handle: str, post_id: str, db: Session = Depends(get_db)):
@@ -74,7 +79,7 @@ async def get_post(group_handle: str, post_id: str, db: Session = Depends(get_db
     return post
 
 
-@router.get("/{channel_id}/posts/top", response_model=response_schemas.ChannelTopPosts)
+@router.get("/{group_handle}/posts/top", response_model=response_schemas.ChannelTopPosts)
 async def get_top_posts(group_handle: str, db: Session = Depends(get_db)):
     post = crud.get_top_posts_by_channel_handle(db, group_handle)
     if not post:

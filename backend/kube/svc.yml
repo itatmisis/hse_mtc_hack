@@ -2,12 +2,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: coordinator
+  name: api
   namespace: deepmisis-hse
 spec:
   type: ClusterIP
   selector:
-    app: dm-coordinator
+    app: dm-api
   ports:
     - name: http
       protocol: TCP

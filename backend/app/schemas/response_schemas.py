@@ -1,6 +1,6 @@
 from typing import Optional, List, Dict, Union
 from pydantic import BaseModel, Field, EmailStr, validator
-
+from datetime import datetime
 
 class DefaultError(BaseModel):
     detail: str
@@ -33,11 +33,11 @@ class ChannelInfo(BaseModel):
 
 
 class ChannelPost(BaseModel):
-    post_id: str = Field(..., alias="post_id")
-    post_date: str = Field(..., alias="post_date")
-    post_views: int = Field(..., alias="views")
-    post_comments: int = Field(..., alias="comments")
-    post_reactions: Union[Dict[str, int], None] = Field(..., alias="reactions")
+    post_id: Union[int, None] = Field(None, alias="post_id")
+    post_date: Union[datetime, None] = Field(None, alias="post_date")
+    post_views: Union[int, None] = Field(None, alias="views")
+    post_comments: Union[int, None] = Field(None, alias="comments")
+    post_reactions: Union[Dict[str, int], None] = Field(None, alias="reactions")
 
     class Config:
         orm_mode = True

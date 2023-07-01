@@ -101,6 +101,29 @@ class DBManager:
                 self.session.add(db_post)
                 self.session.commit()
                 # TODO: Add post metrics
+                # Add mock values for now
+                # class PostMetrics(Base):
+                #     __tablename__ = "post_metrics"
+
+                #     metric_id = Column(Integer, primary_key=True)
+                #     post_id = Column(Integer, ForeignKey("posts.post_id"))
+                #     views = Column(Integer)
+                #     reposts = Column(Integer)
+                #     comments = Column(Integer)
+                #     links = Column(Integer)
+                #     images = Column(Integer)
+                #     videos = Column(Integer)
+                #     recorded_date = Column(DateTime)
+                db_post_metrics = PostMetrics(post_id=pid,
+                                              views=123,
+                                              reposts=456,
+                                              comments=678,
+                                              links=12,
+                                              images=2,
+                                              videos=0,
+                                              recorded_date=datetime.now())
+                self.session.add(db_post_metrics)
+                self.session.commit()
                 for reaction, count in post['reactions'].items():
                     db_reaction = Reaction(post_id=pid,
                                            reaction_desc=reaction,

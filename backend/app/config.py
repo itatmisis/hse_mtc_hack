@@ -1,12 +1,8 @@
 from loguru import logger
 from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseSettings, PostgresDsn, validator
-from dotenv import load_dotenv
 
 log = logger
-
-
-load_dotenv()
 
 
 class Settings(BaseSettings):
@@ -21,7 +17,6 @@ class Settings(BaseSettings):
             return v
 
         return str(values.get("COORDINATOR_HOSTNAME"))
-
 
     @validator("BACKEND_CORS_ORIGINS", pre=True)
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:

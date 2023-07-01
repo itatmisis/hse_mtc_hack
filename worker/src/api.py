@@ -63,11 +63,12 @@ async def parse_telegram_group(group_link: str,
 
 async def job_parse_group(link: str, messages_limit: int, comments_limit: int):
     # Perform the parsing job here
-    result = await parse_group(channel_link=link,
-                               api_id=config.telegram_api_id,
-                               api_hash=config.telegram_api_hash,
-                               messages_limit=messages_limit,
-                               comments_limit=comments_limit)
+    try:
+        result = await parse_group(channel_link=link,
+                                   messages_limit=messages_limit,
+                                   comments_limit=comments_limit)
+    except Exception as exc:
+        log.debug(f"Error parsing channel {link}: {exc}")
     log.debug("Adding channel records to DB...")
     db.add_channel_records(result)
 
@@ -92,4 +93,4 @@ async def shutdown_event():
 if __name__ == "__main__":
     loop = asyncio.get_event_loop()
     loop.create_task(cleanup_active_jobs())
-    uvicorn.run(api, host="0.0.0.0", port=8000)
+    uvicorn.run(api, host="0.0.0.0", port=config.API_PORT)

@@ -3,16 +3,18 @@
 import logging
 from os import getenv
 
-telegram_session_token = getenv('TELEGRAM_SESSION_TOKEN')
-telegram_api_id = getenv('TELEGRAM_API_ID')
-telegram_api_hash = getenv('TELEGRAM_API_HASH')
+TELEGRAM_SESSION_TOKEN: str = getenv('TELEGRAM_SESSION_TOKEN')
+TELEGRAM_API_ID: int = int(getenv('TELEGRAM_API_ID'))
+TELEGRAM_API_HASH: str = getenv('TELEGRAM_API_HASH')
+TELEGRAM_MESSAGES_DEFAULT_LIMIT: int = int(getenv("MESSAGES_DEFAULT_LIMIT"), 20)
+TELEGRAM_COMMENTS_DEFAULT_LIMIT: int = int(getenv("COMMENTS_DEFAULT_LIMIT"), 20)
+TELEGRAM_EXAMPLE_CHANNEL_LINK: str = getenv("EXAMPLE_CHANNEL_LINK", "durov")
+
+API_PORT: int = int(getenv("API_PORT", 80))
 
 # region Logging
 # Create a logger instance
-log = logging.getLogger("api.py-worker")
-
-# AIOGram logging
-# logging.basicConfig(level=logging.DEBUG)
+log: logging.Logger = logging.getLogger("api.py-worker")
 
 # Create log formatter
 formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
@@ -22,11 +24,6 @@ ch = logging.StreamHandler()
 ch.setLevel(logging.DEBUG)
 ch.setFormatter(formatter)
 log.addHandler(ch)
-
-# Create file logging handler and set its level
-# fh = logging.FileHandler(r"logs/worker.log")
-# fh.setFormatter(formatter)
-# log.addHandler(fh)
 
 # region Set logging level
 logging_level_lower = getenv("LOGGING_LEVEL").lower()

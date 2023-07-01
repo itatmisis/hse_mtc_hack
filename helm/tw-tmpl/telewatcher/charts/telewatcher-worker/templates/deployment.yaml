@@ -1,0 +1,47 @@
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: telewatcher-worker
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: telewatcher-worker
+      app.kubernetes.io/instance: release-name
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: telewatcher-worker
+        app.kubernetes.io/instance: release-name
+    spec:
+      # serviceAccountName: telewatcher-worker
+      securityContext:
+        {}
+      containers:
+        - name: telewatcher-worker
+          securityContext:
+            {}
+          image: "0xb1b1/hse_mts_hack_worker:latest"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          resources:
+            {}

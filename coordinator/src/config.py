@@ -3,8 +3,10 @@
 import logging
 from os import getenv
 
+API_PORT: int = int(getenv("API_PORT", 80))
+
 # region Environment
-worker_address = getenv('WORKER_HOSTNAME', 'worker')  # Service hostname/IP in K8s
+WORKER_ADDRESS = getenv('WORKER_HOSTNAME', 'worker')  # Service hostname/IP in K8s
 # endregion
 
 # region Logging

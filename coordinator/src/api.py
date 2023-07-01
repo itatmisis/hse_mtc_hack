@@ -74,7 +74,7 @@ async def run_scheduled_jobs() -> None:
         log.debug(f"Trying to schedule job for {job}...")
         try:
             async with aiohttp.ClientSession() as session:
-                url = "http://" + config.worker_address + "/parse"
+                url = "http://" + config.WORKER_ADDRESS + "/parse"
                 log.debug(f"Sending request to {url} with params 'group_link': {job[0]}...")
                 async with session.post(url,
                                         params={'group_link': job[0]}) as response:
@@ -106,4 +106,4 @@ async def run_scheduled_jobs() -> None:
 
 
 if __name__ == "__main__":
-    uvicorn.run(api, host="0.0.0.0", port=8001)
+    uvicorn.run(api, host="0.0.0.0", port=config.API_PORT)

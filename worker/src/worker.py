@@ -10,18 +10,20 @@ import config
 from config import log
 
 # load_dotenv()
-EXAMPLE_CHANNEL_LINK = getenv("EXAMPLE_CHANNEL_LINK", "durov")
-API_ID = int(getenv("TELEGRAM_API_ID"))
-API_HASH = getenv("TELEGRAM_API_HASH")
-MESSAGES_LIMIT = int(getenv("MESSAGES_DEFAULT_LIMIT"), 20)
-COMMENTS_LIMIT = int(getenv("COMMENTS_DEFAULT_LIMIT"), 10)
+EXAMPLE_CHANNEL_LINK = config.TELEGRAM_EXAMPLE_CHANNEL_LINK
+API_ID = config.TELEGRAM_API_ID
+API_HASH = config.TELEGRAM_API_HASH
+SESSION_TOKEN = config.TELEGRAM_SESSION_TOKEN
+MESSAGES_DEFAULT_LIMIT = config.TELEGRAM_MESSAGES_DEFAULT_LIMIT
+COMMENTS_DEFAULT_LIMIT = config.TELEGRAM_COMMENTS_DEFAULT_LIMIT
 
 
 async def parse_group(api_id: int = API_ID, api_hash: str = API_HASH,
+                      session_token: str = SESSION_TOKEN,
                       channel_link: str = EXAMPLE_CHANNEL_LINK,
                       dry_dump_to_file: bool = False,
-                      messages_limit: int = MESSAGES_LIMIT,
-                      comments_limit: int = COMMENTS_LIMIT,
+                      messages_limit: int = MESSAGES_DEFAULT_LIMIT,
+                      comments_limit: int = COMMENTS_DEFAULT_LIMIT,
                       ):
     """
     Parse a Telegram group and return a JSON object containing the group's information.
@@ -38,7 +40,7 @@ async def parse_group(api_id: int = API_ID, api_hash: str = API_HASH,
     If channel_id is not None, channel_link will be ignored.
     """
 
-    async with Client("oxb1b1", api_id, api_hash, session_string=config.telegram_session_token) as app:
+    async with Client("oxb1b1", api_id, api_hash, session_string=session_token) as app:
         group_report = {
             'handle': channel_link,
             'name': None,

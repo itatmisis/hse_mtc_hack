@@ -1,0 +1,168 @@
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "release-name-telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['release-name-telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
+---
+# Source: telewatcher/charts/telewatcher-worker/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "telewatcher-worker-test-connection"
+  labels:
+    helm.sh/chart: telewatcher-worker-0.1.0
+    app.kubernetes.io/name: telewatcher-worker
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/version: "latest"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['telewatcher-worker:80']
+  restartPolicy: Never
