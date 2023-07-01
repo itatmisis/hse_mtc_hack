@@ -14,7 +14,7 @@ docker compose up -d
 
 ### Kubernetes
 
-Apply all files inside `kubes-common`, then apply all microservices' K8s files (typically located in `<microservice name>/kubes`)
+Apply all files inside `kube-common`, then apply all microservices' K8s files (typically located in `<microservice name>/kube`)
 
 ### Helm
 
